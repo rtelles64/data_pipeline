@@ -7,7 +7,29 @@ class StageToRedshiftOperator(BaseOperator):
     """
     Loads JSON formatted files from S3 to Redshift.
 
+    Attributes
+    ----------
+    copy_qry : str
+        Copy query to execute
+    redshift_conn_id : str
+        Redshift connection id
+    aws_credentials : str
+        AWS credentials
+    table : str
+        Table name
+    s3_bucket : str
+        S3 bucket name
+    s3_key : str
+        S3 bucket data path
+    copy_json_option : str, optional
+        JSON copy type (default is "auto")
+    region : str
+        AWS region where source data is located
 
+    Methods
+    -------
+    execute(context)
+        Executes S3 to Redshift staging
     """
     ui_color = '#358140'
 
@@ -32,6 +54,24 @@ class StageToRedshiftOperator(BaseOperator):
                  copy_json_option="auto",
                  region="",
                  *args, **kwargs):
+        '''
+        Parameters
+        ----------
+        redshift_conn_id : str
+            Redshift connection id
+        aws_credentials : str
+            AWS credentials
+        table : str
+            Table name
+        s3_bucket : str
+            S3 bucket name
+        s3_key : str
+            S3 bucket data path
+        copy_json_option : str, optional
+            JSON copy type (default is "auto")
+        region : str
+            AWS region where source data is located
+        '''
 
         super(StageToRedshiftOperator, self).__init__(*args, **kwargs)
         # Map params here
@@ -46,6 +86,14 @@ class StageToRedshiftOperator(BaseOperator):
         self.region = region
 
     def execute(self, context):
+        '''
+        Executes S3 to Redshift staging.
+
+        Parameters
+        ----------
+        context : dict
+            Airflow context parameters
+        '''
         # self.log.info('StageToRedshiftOperator not implemented yet')
 
         self.log.info("Getting credentials")
