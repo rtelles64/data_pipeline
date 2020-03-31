@@ -70,7 +70,7 @@ The parameters for the DAG are according to these guidelines:
 - Catchup is turned off
 - Do not email on retry
 
-Task dependencies are configured according to the [example DAG](https://github.com/rtelles64/data_pipeline/blob/master/example-dag.png) above.
+Task dependencies are configured according to the [example DAG](##Overview) above.
 
 ## Operators
 There are four different operators that will stage the data, transform the data, and run checks on data quality. Using Airflow's built-in functionalities as connections and hooks ensures that Airflow does all the heavy-lifting when possible.
