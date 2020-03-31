@@ -8,10 +8,17 @@ class LoadFactOperator(BaseOperator):
 
     Attributes
     ----------
-
+    redshift_conn_id : str
+        Redshift connection id
+    table : str
+        Table name
+    select_qry : str
+        Query to load
 
     Methods
     -------
+    execute(context)
+        Executes fact table load
     """
 
     ui_color = '#F98866'
@@ -25,6 +32,16 @@ class LoadFactOperator(BaseOperator):
                  table="",
                  select_qry="",
                  *args, **kwargs):
+        '''
+        Parameters
+        ----------
+        redshift_conn_id : str
+            Redshift connection id
+        table : str
+            Table name
+        select_qry : str
+            Query to load
+        '''
 
         super(LoadFactOperator, self).__init__(*args, **kwargs)
         # Map params here
@@ -35,6 +52,14 @@ class LoadFactOperator(BaseOperator):
         self.select_qry = select_qry
 
     def execute(self, context):
+        '''
+        Executions fact table load.
+
+        Parameters
+        ----------
+        context : dict
+            Airflow context parameters
+        '''
         # self.log.info('LoadFactOperator not implemented yet')
 
         self.log.info("Getting credentials")
