@@ -4,6 +4,23 @@ from airflow.utils.decorators import apply_defaults
 
 
 class DataQualityOperator(BaseOperator):
+    """
+    Runs quality checks on data.
+
+    Attributes
+    ----------
+    redshift_conn_id : str
+        Redshift connection id
+    test_query : str
+        Query to run quality check on
+    expected_result : str
+        Result to run test query against
+
+    Methods
+    -------
+    execute(context)
+        Executes data quality check
+    """
 
     ui_color = '#89DA59'
 
@@ -16,6 +33,16 @@ class DataQualityOperator(BaseOperator):
                  test_query="",
                  expected_result="",
                  *args, **kwargs):
+        '''
+        Parameters
+        ----------
+        redshift_conn_id : str
+            Redshift connection id
+        test_query : str
+            Query to run quality check on
+        expected_result : str
+            Result to run test query against
+        '''
 
         super(DataQualityOperator, self).__init__(*args, **kwargs)
         # Map params here
@@ -26,6 +53,19 @@ class DataQualityOperator(BaseOperator):
         self.expected_result = expected_result
 
     def execute(self, context):
+        '''
+        Executes data quality check.
+
+        Parameters
+        ----------
+        context : dict
+            Airflow context parameters
+
+        Raises
+        ------
+        ValueError
+            If test query does not match expected result
+        '''
         # self.log.info('DataQualityOperator not implemented yet')
 
         self.log.info("Obtaining credentials")
