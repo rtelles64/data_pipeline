@@ -4,6 +4,11 @@ from airflow.utils.decorators import apply_defaults
 from airflow.contrib.hooks.aws_hook import AwsHook  # easy connect to AWS
 
 class StageToRedshiftOperator(BaseOperator):
+    """
+    Loads JSON formatted files from S3 to Redshift.
+
+
+    """
     ui_color = '#358140'
 
     copy_qry = """
@@ -54,7 +59,7 @@ class StageToRedshiftOperator(BaseOperator):
         self.log.info("Copying data from S3 to Redshift")
         rendered_key = self.s3_key.format(**context)
         s3_path = f"s3://{self.s3_bucket}/{rendered_key}"
-        copy_sql = StageToRedshiftOperator.copy_qry.format(
+        copy_sql = self.copy_qry.format(
             self.table,
             s3_path,
             credentials.access_key,
