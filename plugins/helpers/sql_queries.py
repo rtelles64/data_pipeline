@@ -1,14 +1,30 @@
 class SqlQueries:
+    """
+    Contains SQL queries to run.
+
+    Attributes
+    ----------
+    songplay_table_insert : str
+        Sonplay table insert query
+    user_table_insert : str
+        User table insert query
+    song_table_insert : str
+        Song table insert query
+    artist_table_insert : str
+        Artist table insert query
+    time_table_insert : str
+        Time table insert query
+    """
     songplay_table_insert = ("""
         SELECT
                 md5(events.sessionid || events.start_time) songplay_id,
-                events.start_time, 
-                events.userid, 
-                events.level, 
-                songs.song_id, 
-                songs.artist_id, 
-                events.sessionid, 
-                events.location, 
+                events.start_time,
+                events.userid,
+                events.level,
+                songs.song_id,
+                songs.artist_id,
+                events.sessionid,
+                events.location,
                 events.useragent
                 FROM (SELECT TIMESTAMP 'epoch' + ts/1000 * interval '1 second' AS start_time, *
             FROM staging_events
@@ -36,7 +52,7 @@ class SqlQueries:
     """)
 
     time_table_insert = ("""
-        SELECT start_time, extract(hour from start_time), extract(day from start_time), extract(week from start_time), 
+        SELECT start_time, extract(hour from start_time), extract(day from start_time), extract(week from start_time),
                extract(month from start_time), extract(year from start_time), extract(dayofweek from start_time)
         FROM songplays
     """)
